@@ -14,7 +14,8 @@
     "test:watch": "vitest",
     "chain:check": "node scripts/check-chain.mjs",
     "local-stack": "node scripts/local-stack.mjs",
-    "test:integration": "vitest run test/integration"
+    "test:integration": "vitest run test/integration",
+    "walkthrough": "node scripts/browser-walkthrough.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.2.1",

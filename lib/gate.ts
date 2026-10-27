@@ -87,7 +87,11 @@ export function humanDuration(seconds: number | bigint): string {
 /**
  * Determines current membership state and display copy.
  */
-export function memberState(expiry: number | bigint, nowSec: number | bigint): MemberState {
+export function memberState(
+  expiry: number | bigint,
+  nowSec: number | bigint,
+  isMemberOnChain?: boolean,
+): MemberState {
   const exp = BigInt(expiry);
   const now = BigInt(nowSec);
 
@@ -102,8 +106,10 @@ export function memberState(expiry: number | bigint, nowSec: number | bigint): M
     };
   }
 
-  if (exp > now) {
-    const diffSec = Number(exp - now);
+  const isActive = isMemberOnChain !== undefined ? isMemberOnChain : exp > now;
+
+  if (isActive) {
+    const diffSec = Number(exp > now ? exp - now : 86400n);
     const days = Math.max(1, Math.ceil(diffSec / 86400));
     const formatted = formatDateFull(exp);
     return {
@@ -116,7 +122,7 @@ export function memberState(expiry: number | bigint, nowSec: number | bigint): M
     };
   }
 
-  const diffSec = Number(now - exp);
+  const diffSec = Number(now > exp ? now - exp : 86400n);
   const daysAgo = Math.floor(diffSec / 86400);
   const agoText = daysAgo === 0 ? "today" : daysAgo === 1 ? "1 day ago" : `${daysAgo} days ago`;
   return {

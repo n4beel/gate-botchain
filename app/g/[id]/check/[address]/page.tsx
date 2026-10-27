@@ -91,7 +91,7 @@ export default function CheckAddressPage() {
 
   const nowSec = Math.floor(Date.now() / 1000);
   const expiry = expiryRaw ?? 0n;
-  const state = memberState(expiry, nowSec);
+  const state = memberState(expiry, nowSec, isMemberRaw);
 
   return (
     <div className="flex flex-col gap-6">

@@ -66,11 +66,19 @@ export default function GateDetailsPage() {
     query: { enabled: deployed },
   });
 
-  // 2. Read current user's expiry
+  // 2. Read current user's expiry and membership
   const { data: userExpiry, refetch: refetchExpiry } = useReadContract({
     address: deployment.address,
     abi: gateAbi,
     functionName: "expiryOf",
+    args: [gateId, (address ?? "0x0000000000000000000000000000000000000000") as `0x${string}`],
+    query: { enabled: deployed && isConnected && !!address },
+  });
+
+  const { data: userIsMember, refetch: refetchIsMember } = useReadContract({
+    address: deployment.address,
+    abi: gateAbi,
+    functionName: "isMember",
     args: [gateId, (address ?? "0x0000000000000000000000000000000000000000") as `0x${string}`],
     query: { enabled: deployed && isConnected && !!address },
   });
@@ -92,6 +100,7 @@ export default function GateDetailsPage() {
       setJustStamped(true);
       refetchGate();
       refetchExpiry();
+      refetchIsMember();
       toast("success", "Access Purchased!", "Your pass has been stamped and validated on-chain.");
     }
   }, [isBuySuccess]);
@@ -155,7 +164,7 @@ export default function GateDetailsPage() {
   const isOwner = isConnected && address && gate.owner.toLowerCase() === address.toLowerCase();
   const nowSec = Math.floor(Date.now() / 1000);
   const currentExpiry = userExpiry ?? 0n;
-  const userMemberState = isConnected && address ? memberState(currentExpiry, nowSec) : null;
+  const userMemberState = isConnected && address ? memberState(currentExpiry, nowSec, userIsMember) : null;
 
   // Pricing & New Expiry preview
   const totalPrice = quote(gate.price, periods);
@@ -257,6 +266,7 @@ export default function GateDetailsPage() {
       <Ticket
         gate={gate}
         expiry={isConnected ? currentExpiry : undefined}
+        isMember={userMemberState?.isMember}
         isStamping={justStamped}
       />
 

@@ -13,6 +13,7 @@ import {
 interface TicketProps {
   gate: GateData;
   expiry?: bigint;
+  isMember?: boolean;
   isStamping?: boolean;
   compact?: boolean;
   inspectAddress?: string;
@@ -21,12 +22,13 @@ interface TicketProps {
 export default function Ticket({
   gate,
   expiry,
+  isMember,
   isStamping = false,
   compact = false,
   inspectAddress,
 }: TicketProps) {
   const nowSec = Math.floor(Date.now() / 1000);
-  const mState: MemberState | null = expiry !== undefined ? memberState(expiry, nowSec) : null;
+  const mState: MemberState | null = expiry !== undefined ? memberState(expiry, nowSec, isMember) : null;
   const durationText = humanDuration(gate.periodSecs);
   const priceBot = formatEther(gate.price);
   const formattedId = `#${String(gate.id).padStart(3, "0")}`;
