@@ -13,6 +13,7 @@
     "test:unit": "vitest run lib test/lint",
     "test:watch": "vitest",
     "chain:check": "node scripts/check-chain.mjs",
+    "local-stack": "node scripts/local-stack.mjs",
     "test:integration": "vitest run test/integration"
   },
   "dependencies": {
