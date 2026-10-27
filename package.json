@@ -10,6 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run lib test/lint",
+    "test:unit": "vitest run lib test/lint",
     "test:watch": "vitest",
     "chain:check": "node scripts/check-chain.mjs",
     "test:integration": "vitest run test/integration"

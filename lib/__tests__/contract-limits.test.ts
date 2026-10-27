@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import * as limits from "../limits";
+import * as limits from "../gate";
 
 /**
  * The contract's limits and the UI's copy of them, pinned together.
