@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useAccount } from "wagmi";
+import { useWaitForTransactionReceipt } from "@/lib/useChainWrite";
+import { useWriteContract } from "@/lib/useChainWrite";
 import { parseEther, decodeEventLog } from "viem";
 import Ticket from "@/components/gate/Ticket";
 import Button from "@/components/ui/Button";
@@ -211,7 +213,7 @@ export default function NewGatePage() {
               <input
                 id="gate-price"
                 type="number"
-                step="0.001"
+                step="any"
                 min="0.0001"
                 value={priceInput}
                 onChange={(e) => setPriceInput(e.target.value)}

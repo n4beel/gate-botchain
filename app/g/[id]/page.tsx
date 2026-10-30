@@ -3,13 +3,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  useAccount,
-  useReadContract,
-  useWriteContract,
-  useWaitForTransactionReceipt,
-  usePublicClient,
-} from "wagmi";
+import { useAccount, useReadContract, usePublicClient } from "wagmi";
+import { useWaitForTransactionReceipt } from "@/lib/useChainWrite";
+import { useWriteContract } from "@/lib/useChainWrite";
 import { formatEther, isAddress } from "viem";
 import Ticket from "@/components/gate/Ticket";
 import Button from "@/components/ui/Button";
