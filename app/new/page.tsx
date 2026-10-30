@@ -30,7 +30,7 @@ export default function NewGatePage() {
   const { toast } = useToast();
   const { address, isConnected, chainId } = useAccount();
 
-  const currentChainId = (chainId ?? activeBotChain.id) as 677 | 968;
+  const currentChainId = activeBotChain.id as 677 | 968;
   const deployment = getDeployment(currentChainId);
   const deployed = isDeployed(currentChainId);
 

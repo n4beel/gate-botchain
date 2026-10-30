@@ -33,9 +33,9 @@ const createdEvent = gateAbi.find(
 export default function MePage() {
   const { toast } = useToast();
   const { address, isConnected, chainId } = useAccount();
-  const publicClient = usePublicClient(); // stable-hook-result
+  const publicClient = usePublicClient({ chainId: activeBotChain.id }); // stable-hook-result
 
-  const currentChainId = (chainId ?? activeBotChain.id) as 677 | 968;
+  const currentChainId = activeBotChain.id as 677 | 968;
   const deployment = getDeployment(currentChainId);
   const deployed = isDeployed(currentChainId);
 

@@ -12,7 +12,7 @@ import { app } from "@/lib/app-config";
 
 export default function Home() {
   const { chainId } = useAccount();
-  const currentChainId = (chainId ?? activeBotChain.id) as 677 | 968;
+  const currentChainId = activeBotChain.id as 677 | 968;
   const deployment = getDeployment(currentChainId);
   const deployed = isDeployed(currentChainId);
 
